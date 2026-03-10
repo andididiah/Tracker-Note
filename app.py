@@ -2,11 +2,19 @@ import streamlit as st
 import time
 import pandas as pd
 import os
+import pytz # Tambahkan ini untuk zona waktu
 from datetime import datetime
 
-st.set_page_config(page_title="Pomodoro Pro Logs", page_icon="⏳")
+st.set_page_config(page_title="Pomodoro Pro Logs (WITA)", page_icon="⏳")
+
+# Pengaturan Zona Waktu Samarinda (WITA)
+WITA = pytz.timezone('Asia/Makassar')
 
 DATA_FILE = "riwayat_pomodoro_final.csv"
+
+# Fungsi untuk mendapatkan waktu sekarang di WITA
+def get_now_wita():
+    return datetime.now(WITA)
 
 # --- FUNGSI SIMPAN ---
 def simpan_sesi(kategori, tugas, durasi_target, sisa_waktu_detik, tipe_sesi, jam_mulai):
@@ -40,7 +48,7 @@ def simpan_sesi(kategori, tugas, durasi_target, sisa_waktu_detik, tipe_sesi, jam
 # --- UI SIDEBAR ---
 st.sidebar.header("⚙️ Konfigurasi")
 if "list_kategori" not in st.session_state:
-    st.session_state.list_kategori = ["Bekerja", "Belajar", "Tugas Lainnya"]
+    st.session_state.list_kategori = ["Study", "Work"]
 
 kategori_baru = st.sidebar.text_input("Tambah Tag Baru")
 if st.sidebar.button("Tambah Tag"):
@@ -56,7 +64,7 @@ menit_istirahat = st.sidebar.slider("Istirahat (Menit)", 1, 30, 5)
 
 # --- MAIN UI ---
 st.title("⏳ Pomodoro Tracker & Logger")
-tab1, tab2 = st.tabs(["Timer", "Riwayat & Pengaturan"])
+tab1, tab2 = st.tabs(["Timer", "Riwayat"])
 
 with tab1:
     mode = st.radio("Mode:", ["Focus", "Break"], horizontal=True)
