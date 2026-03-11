@@ -56,7 +56,7 @@ if st.sidebar.button("Tambah Tag"):
         st.session_state.list_kategori.append(kategori_baru)
 
 kategori_pilih = st.sidebar.selectbox("Pilih Kategori", st.session_state.list_kategori)
-tugas_input = st.sidebar.text_input("Nama Tugas", placeholder="Contoh: Rekonsiliasi Data")
+tugas_input = st.sidebar.text_input("Note", placeholder="Contoh: Rekonsiliasi Data")
 
 st.sidebar.subheader("Durasi Sesi")
 menit_fokus = st.sidebar.slider("Fokus (Menit)", 1, 60, 25)
